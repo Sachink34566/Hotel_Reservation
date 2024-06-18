@@ -9,8 +9,10 @@ namespace Hotel_reservation
 {
     public class Calculatedays
     {
-        public int Count()
+        public (int,int) Count()
         {
+            int weekDayCount = 0;
+            int weekEndCount = 0;
             string format = "ddMMMyyyy";
             CultureInfo culture = CultureInfo.InvariantCulture;
             Console.WriteLine("Reservation Date");
@@ -19,16 +21,22 @@ namespace Hotel_reservation
             Console.WriteLine("enter end date 12Jan2021");
             DateTime end= DateTime.ParseExact(Console.ReadLine(), format,culture);
 
-            if (start <= end)
+            if (start > end)
             {
-                TimeSpan day=end- start;
-                int r= day.Days+1;
-                return r;
+                return (-1, -1);
             }
-            else
+            for (DateTime date = start; date <= end; date = date.AddDays(1))
             {
-                return -1;
+                if (date.DayOfWeek == DayOfWeek.Sunday || date.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    weekEndCount++;
+                }
+                else
+                {
+                    weekDayCount++;
+                }
             }
+            return (weekDayCount, weekEndCount);
 
         }
     }

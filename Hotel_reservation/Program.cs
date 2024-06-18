@@ -21,14 +21,14 @@ namespace Hotel_reservation
             };
 
             Calculatedays calculatedays = new Calculatedays();
-            int days=calculatedays.Count();
-            if(days != -1 )
+            var (weekDays, WeekEnds) = calculatedays.Count();
+            if (weekDays != -1)
             {
-                Hotel.cheapestregular(hotels, days);
+                Hotel.ChepeastRate(hotels, weekDays, WeekEnds);
             }
             else
             {
-                Console.WriteLine("invalid date");
+                Console.WriteLine("Invalid Dates");
             }
         }
     }
