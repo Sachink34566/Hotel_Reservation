@@ -13,27 +13,31 @@ namespace Hotel_reservation
         public int WeekEndRegular { get; set; }
         public int TotalPrice { get; set; }
         public int Rating { get; set; }
+        public int WeekDayReward { get; set; }
+        public int WeekEndReward { get; set; }
 
-        public Hotel(string name, int weekdayregular, int weekendregular,int rating)
+        public Hotel(string name, int weekdayRegular, int weekendRegular, int weekdayReward, int weekendReward, int rating)
         {
             HotelName = name;
-            WeekDayRegular = weekdayregular;
-            WeekEndRegular = weekendregular;
+            WeekDayRegular = weekdayRegular;
+            WeekEndRegular = weekendRegular;
+            WeekDayReward = weekdayReward;
+            WeekEndReward = weekendReward;
             Rating = rating;
             Display();
-
         }
+
         public void Display()
         {
             Console.WriteLine($"Hotel {HotelName} with regular customer rate for Week Day is $ {WeekDayRegular} and Week End is $ {WeekEndRegular} and Rating {Rating}.");
         }
 
-        public static void ChepeastRate(List<Hotel> hotels, int weekday, int weekend)
+        public static void CheapestRate(List<Hotel> hotels, int weekdays, int weekends, bool isRewardCustomer)
         {
             foreach (Hotel hotel in hotels)
             {
-                int weekdayPrice = weekday * hotel.WeekDayRegular;
-                int weekendPrice = weekend * hotel.WeekEndRegular;
+                int weekdayPrice = isRewardCustomer ? weekdays * hotel.WeekDayReward : weekdays * hotel.WeekDayRegular;
+                int weekendPrice = isRewardCustomer ? weekends * hotel.WeekEndReward : weekends * hotel.WeekEndRegular;
                 hotel.TotalPrice = weekdayPrice + weekendPrice;
             }
 
@@ -41,7 +45,7 @@ namespace Hotel_reservation
 
 
             var cheapestHotels = hotels.Where(h => h.TotalPrice == minPrice);
-            int bestRating=cheapestHotels.Max((h=>h.Rating));
+            int bestRating=cheapestHotels.Max(h=>h.Rating);
 
             cheapestHotels=from hotel in hotels
                            where hotel.Rating == bestRating

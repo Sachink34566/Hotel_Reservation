@@ -14,17 +14,17 @@ namespace Hotel_reservation
 
             List<Hotel> hotels = new List<Hotel>()
             {
-                new Hotel("The Oberoi Udaivilas", 600,1000,4),
-                new Hotel("The Taj Mahal Palace Mumbai", 700, 1000,5 ),
-                new Hotel("The Leela Palace New Delhi", 800, 1100,3),
-                new Hotel("The Lodhi New Delhi",1000,1200,5)
+                new Hotel("The Oberoi Udaivilas", 600,1000,80,90,3),
+                new Hotel("The Taj Mahal Palace Mumbai", 700, 1000,100,120,4),
+                new Hotel("The Leela Palace New Delhi", 800, 1100, 90, 120, 4),
+                new Hotel("The Lodhi New Delhi", 1000, 1200, 200, 180, 3),
             };
 
             Calculatedays calculatedays = new Calculatedays();
             var (weekDays, WeekEnds) = calculatedays.Count();
             if (weekDays != -1)
             {
-                Hotel.ChepeastRate(hotels, weekDays, WeekEnds);
+                Hotel.CheapestRate(hotels, weekDays, WeekEnds,true);
             }
             else
             {
