@@ -13,16 +13,13 @@ namespace Hotel_reservation
         public int WeekEndRegular { get; set; }
         public int TotalPrice { get; set; }
         public int Rating { get; set; }
-        public int WeekDayReward { get; set; }
-        public int WeekEndReward { get; set; }
 
-        public Hotel(string name, int weekdayRegular, int weekendRegular, int weekdayReward, int weekendReward, int rating)
+
+        public Hotel(string name, int weekdayRegular, int weekendRegular,  int rating)
         {
             HotelName = name;
             WeekDayRegular = weekdayRegular;
             WeekEndRegular = weekendRegular;
-            WeekDayReward = weekdayReward;
-            WeekEndReward = weekendReward;
             Rating = rating;
             Display();
         }
@@ -31,13 +28,19 @@ namespace Hotel_reservation
         {
             Console.WriteLine($"Hotel {HotelName} with regular customer rate for Week Day is $ {WeekDayRegular} and Week End is $ {WeekEndRegular} and Rating {Rating}.");
         }
-
-        public static void CheapestRate(List<Hotel> hotels, int weekdays, int weekends, bool isRewardCustomer)
+        public static void BestRegular(List<Hotel>  hotels, int weekDays, int weekEnds)
+        {
+            int BestRating = hotels.Max((hotel) => hotel.Rating);
+            Hotel BestHotel = hotels.Single((hotel) => hotel.Rating == BestRating);
+            BestHotel.TotalPrice = (weekDays * BestHotel.WeekDayRegular) + (weekEnds * BestHotel.WeekEndRegular);
+            Console.WriteLine($"{BestHotel.HotelName}, Total Price = ${BestHotel.TotalPrice}");
+        }
+        public static void ChepeastRate(List<Hotel> hotels, int weekday, int weekend)
         {
             foreach (Hotel hotel in hotels)
             {
-                int weekdayPrice = isRewardCustomer ? weekdays * hotel.WeekDayReward : weekdays * hotel.WeekDayRegular;
-                int weekendPrice = isRewardCustomer ? weekends * hotel.WeekEndReward : weekends * hotel.WeekEndRegular;
+                int weekdayPrice = weekday * hotel.WeekDayRegular;
+                int weekendPrice = weekend * hotel.WeekEndRegular;
                 hotel.TotalPrice = weekdayPrice + weekendPrice;
             }
 
@@ -45,7 +48,7 @@ namespace Hotel_reservation
 
 
             var cheapestHotels = hotels.Where(h => h.TotalPrice == minPrice);
-            int bestRating=cheapestHotels.Max(h=>h.Rating);
+            int bestRating=cheapestHotels.Max((h=>h.Rating));
 
             cheapestHotels=from hotel in hotels
                            where hotel.Rating == bestRating
