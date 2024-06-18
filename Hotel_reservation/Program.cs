@@ -20,9 +20,15 @@ namespace Hotel_reservation
                 new Hotel("The Lodhi New Delhi",1000)
             };
 
-            foreach(Hotel hotel in hotels)
+            Calculatedays calculatedays = new Calculatedays();
+            int days=calculatedays.Count();
+            if(days != -1 )
             {
-                hotel.Display();
+                Hotel.cheapestregular(hotels, days);
+            }
+            else
+            {
+                Console.WriteLine("invalid date");
             }
         }
     }
