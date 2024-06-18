@@ -14,10 +14,10 @@ namespace Hotel_reservation
 
             List<Hotel> hotels = new List<Hotel>()
             {
-                new Hotel("The Oberoi Udaivilas", 600,1000),
-                new Hotel("The Taj Mahal Palace Mumbai", 700, 1000  ),
-                new Hotel("The Leela Palace New Delhi", 800, 1100),
-                new Hotel("The Lodhi New Delhi",1000,1200)
+                new Hotel("The Oberoi Udaivilas", 600,1000,4),
+                new Hotel("The Taj Mahal Palace Mumbai", 700, 1000,5 ),
+                new Hotel("The Leela Palace New Delhi", 800, 1100,4),
+                new Hotel("The Lodhi New Delhi",1000,1200,5)
             };
 
             Calculatedays calculatedays = new Calculatedays();
